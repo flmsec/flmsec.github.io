@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Foundations of Language Model Security: Theory, Practice, and Fundamental Limits. A NeurIPS 2026 workshop in Paris.">
+    <title>Foundations of Language Model Security | NeurIPS 2026 Workshop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-black: #0a0a0a;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666;
+            --text-tertiary: #999;
+            --border-light: #f0f0f0;
+            --bg-subtle: #fafafa;
+            --accent-purple: rgba(102, 51, 153, 0.1);
+            --max-width: 1100px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: #fff;
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        nav {
+            position: fixed;
+            z-index: 100;
+            top: 0;
+            right: 0;
+            left: 0;
+            border-bottom: 1px solid var(--border-light);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: box-shadow 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: var(--max-width);
+            height: 65px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-title {
+            flex-shrink: 0;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-actions,
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-actions {
+            gap: 24px;
+        }
+
+        .nav-links {
+            gap: 24px;
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 5px 0;
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.8px;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-black);
+            content: "";
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-black);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .year-select {
+            min-width: 72px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #fff;
+            color: var(--text-primary);
+            cursor: pointer;
+            font: inherit;
+            font-size: 0.78rem;
+            font-weight: 500;
+            padding: 6px 24px 6px 9px;
+        }
+
+        .menu-button {
+            display: none;
+            width: 36px;
+            height: 36px;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .menu-button span {
+            display: block;
+            width: 20px;
+            height: 1px;
+            margin: 5px auto;
+            background: var(--primary-black);
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .menu-button[aria-expanded="true"] span:first-child {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .menu-button[aria-expanded="true"] span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-button[aria-expanded="true"] span:last-child {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            height: 550px;
+            margin-top: 65px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        }
+
+        #particles-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.9;
+        }
+
+        .hero-content {
+            position: absolute;
+            z-index: 3;
+            top: 50%;
+            left: 50%;
+            width: 90%;
+            max-width: 980px;
+            text-align: center;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+        }
+
+        h1 {
+            margin-bottom: 18px;
+            color: #fff;
+            font-size: clamp(2.5rem, 5.5vw, 3.8rem);
+            font-weight: 200;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            opacity: 0;
+            animation: fade-in-up 1s ease-out forwards;
+        }
+
+        .hero-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.05rem;
+            font-weight: 400;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fade-in-up 1s ease-out 0.2s forwards;
+        }
+
+        .hero-meta {
+            margin-top: 30px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            opacity: 0;
+            animation: fade-in-up 1s ease-out 0.4s forwards;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+
+        section {
+            min-height: 40vh;
+            padding-top: 120px;
+            opacity: 0;
+            animation: fade-in 0.8s ease-out 0.2s forwards;
+        }
+
+        section:first-of-type {
+            padding-top: 100px;
+        }
+
+        h2 {
+            position: relative;
+            margin-bottom: 50px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--primary-black);
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        h2::after {
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary-black);
+            content: "";
+        }
+
+        h3 {
+            margin: 40px 0 20px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        ul {
+            margin: 20px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .tagline {
+            margin: 0 0 42px;
+            padding: 24px 28px;
+            border-left: 3px solid var(--primary-black);
+            background: var(--bg-subtle);
+            color: var(--text-primary);
+            font-size: 1.15rem;
+            font-weight: 400;
+        }
+
+        .questions-grid,
+        .thematic-blocks {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .questions-grid .question-card:last-child {
+            grid-column: 1 / -1;
+        }
+
+        .question-card,
+        .block-card {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            background: #fff;
+            padding: 32px;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .question-card::before,
+        .block-card::before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-black);
+            content: "";
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .question-card:hover,
+        .block-card:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .question-card:hover::before,
+        .block-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .question-number {
+            position: absolute;
+            z-index: 0;
+            top: 16px;
+            right: 20px;
+            color: rgba(0, 0, 0, 0.05);
+            font-size: 3rem;
+            font-weight: 100;
+        }
+
+        .question-card:nth-child(1) .question-number {
+            color: rgba(21, 101, 192, 0.20);
+        }
+
+        .question-card:nth-child(2) .question-number {
+            color: rgba(123, 31, 162, 0.20);
+        }
+
+        .question-card:nth-child(3) .question-number {
+            color: rgba(199, 91, 0, 0.20);
+        }
+
+        .question-card h3,
+        .block-card h3 {
+            position: relative;
+            z-index: 1;
+            margin: 0 0 12px;
+            padding-right: 24px;
+            font-size: 1.05rem;
+        }
+
+        .block-card h3 {
+            padding-right: 0;
+        }
+
+        .question-ref {
+            display: inline-block;
+            margin-left: 5px;
+            color: var(--text-tertiary);
+            font-size: 0.72rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .question-ref .q1 { color: #1565c0; }
+        .question-ref .q2 { color: #7b1fa2; }
+        .question-ref .q3 { color: #c75b00; }
+
+        .question-card p,
+        .block-card p {
+            position: relative;
+            z-index: 1;
+            margin: 0;
+            font-size: 0.94rem;
+            line-height: 1.7;
+        }
+
+        .block-keynote {
+            position: relative;
+            z-index: 1;
+            margin-top: 16px;
+            color: var(--text-tertiary);
+            font-size: 0.88rem;
+            font-style: italic;
+        }
+
+        .format-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 60px 0;
+            padding: 60px 0;
+            border-top: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .format-item {
+            position: relative;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            background: linear-gradient(135deg, #fff, #fafafa);
+            padding: 36px 18px;
+            text-align: center;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .format-item:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            transform: translateY(-5px);
+        }
+
+        .format-time {
+            margin-bottom: 12px;
+            color: var(--primary-black);
+            font-size: 2.7rem;
+            font-weight: 100;
+            letter-spacing: -1px;
+        }
+
+        .format-time span {
+            font-size: 0.4em;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .format-label {
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        .speakers-list {
+            display: flex;
+            flex-direction: column;
+            gap: 42px;
+            margin-top: 50px;
+        }
+
+        .speaker-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+        }
+
+        .speaker-photo,
+        .person-image img {
+            object-fit: cover;
+            background: var(--bg-subtle);
+        }
+
+        .speaker-photo {
+            flex-shrink: 0;
+            width: 120px;
+            height: 120px;
+            border-radius: 8px;
+        }
+
+        .speaker-info {
+            flex: 1;
+        }
+
+        .speaker-name a,
+        .speaker-name span {
+            color: var(--primary-black);
+            font-size: 1.15rem;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .speaker-name a:hover {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .speaker-affiliation {
+            margin-top: 4px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .speaker-topic {
+            margin-top: 5px;
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        .speaker-bio {
+            margin-top: 10px;
+            color: var(--text-secondary);
+            font-size: 0.94rem;
+            line-height: 1.65;
+        }
+
+        .subsection-heading {
+            margin-top: 70px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 0.88rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .block-tag {
+            display: inline-block;
+            margin-bottom: 7px;
+            padding: 3px 8px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .tag-q1 {
+            border-color: #bbdefb;
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .tag-q2 {
+            border-color: #e1bee7;
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .tag-q3 {
+            border-color: #ffe0b2;
+            background: #fff3e0;
+            color: #c75b00;
+        }
+
+        .tag-mixed {
+            border-color: #b2dfdb;
+            background: #e0f2f1;
+            color: #00695c;
+        }
+
+        .timeline {
+            position: relative;
+            margin-top: 40px;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            position: absolute;
+            top: 5px;
+            bottom: 0;
+            left: 8px;
+            width: 1px;
+            background: linear-gradient(to bottom, var(--primary-black), transparent);
+            content: "";
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 42px;
+        }
+
+        .timeline-item::before {
+            position: absolute;
+            top: 8px;
+            left: -36px;
+            width: 12px;
+            height: 12px;
+            border: 2px solid var(--primary-black);
+            border-radius: 50%;
+            background: #fff;
+            content: "";
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .timeline-item:hover::before {
+            background: var(--primary-black);
+            transform: scale(1.2);
+        }
+
+        .timeline-time {
+            margin-bottom: 8px;
+            color: var(--primary-black);
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .timeline-title {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .timeline-title strong {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .timeline-detail {
+            margin-top: 5px;
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .submission-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 300px;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .deadline-box {
+            border-left: 4px solid var(--primary-black);
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--bg-subtle), #fff);
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .deadline-box h3 {
+            margin: 0 0 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .deadline {
+            margin-bottom: 20px;
+        }
+
+        .deadline:last-child {
+            margin-bottom: 0;
+        }
+
+        .deadline-date {
+            color: var(--primary-black);
+            font-size: 1.15rem;
+            font-weight: 400;
+        }
+
+        .deadline-label {
+            color: var(--text-tertiary);
+            font-size: 0.82rem;
+        }
+
+        .people-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px 32px;
+            margin-top: 50px;
+            justify-items: center;
+        }
+
+        .person-card {
+            width: 100%;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .person-card[data-url] {
+            cursor: pointer;
+        }
+
+        .person-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .person-image {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+        }
+
+        .person-image img {
+            width: 100%;
+            height: 100%;
+            border: 3px solid #fff;
+            border-radius: 50%;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .person-card:hover .person-image img {
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+            transform: scale(1.05);
+        }
+
+        .person-name {
+            margin-bottom: 8px;
+            color: var(--primary-black);
+            font-size: 1.08rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .person-card[data-url] .person-name {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .person-affiliation {
+            max-width: 250px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .tba-panel {
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--bg-subtle), #fff);
+            padding: 55px 30px;
+            color: var(--text-tertiary);
+            font-size: 1rem;
+            letter-spacing: 1.5px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 50px;
+        }
+
+        .contact-card {
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--bg-subtle), #fff);
+            padding: 38px 28px;
+            text-align: center;
+        }
+
+        .contact-label {
+            margin-bottom: 14px;
+            color: var(--text-tertiary);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        .contact-name {
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .contact-email {
+            position: relative;
+            display: inline-block;
+            color: var(--primary-black);
+            font-size: 0.92rem;
+            font-weight: 300;
+            text-decoration: none;
+        }
+
+        .contact-email::after {
+            position: absolute;
+            right: 0;
+            bottom: -2px;
+            left: 0;
+            height: 1px;
+            background: var(--primary-black);
+            content: "";
+            transition: transform 0.3s ease;
+        }
+
+        .contact-email:hover::after {
+            transform: scaleX(0);
+        }
+
+        footer {
+            margin-top: 110px;
+            padding: 32px 20px;
+            border-top: 1px solid var(--border-light);
+            color: var(--text-tertiary);
+            font-size: 0.82rem;
+            text-align: center;
+        }
+
+        @keyframes fade-in {
+            to { opacity: 1; }
+        }
+
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 960px) {
+            .menu-button {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 65px;
+                right: 0;
+                left: 0;
+                display: none;
+                align-items: stretch;
+                flex-direction: column;
+                gap: 0;
+                border-bottom: 1px solid var(--border-light);
+                background: rgba(255, 255, 255, 0.99);
+                padding: 10px 20px 18px;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-link {
+                padding: 10px 0;
+                font-size: 0.78rem;
+            }
+
+            .nav-link::after {
+                display: none;
+            }
+
+            .people-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 680px) {
+            .nav-title {
+                font-size: 0.82rem;
+            }
+
+            .nav-actions {
+                gap: 10px;
+            }
+
+            .hero-banner {
+                height: 480px;
+            }
+
+            h1 {
+                font-size: 2.25rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.85rem;
+                letter-spacing: 1.5px;
+            }
+
+            .container {
+                padding: 60px 20px;
+            }
+
+            section,
+            section:first-of-type {
+                padding-top: 80px;
+            }
+
+            .questions-grid,
+            .thematic-blocks,
+            .format-grid,
+            .submission-layout,
+            .people-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .questions-grid .question-card:last-child {
+                grid-column: auto;
+            }
+
+            .speaker-row {
+                flex-direction: column;
+            }
+
+            .speaker-photo {
+                width: 110px;
+                height: 110px;
+            }
+
+            .timeline {
+                padding-left: 30px;
+            }
+
+            .timeline-item::before {
+                left: -26px;
+            }
+
+            .contact-card {
+                padding: 32px 16px;
+            }
+
+            .contact-email {
+                overflow-wrap: anywhere;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            #particles-canvas { display: none; }
+        }
+
+        @media print {
+            nav, #particles-canvas { display: none; }
+            .hero-banner { height: auto; margin-top: 0; padding: 70px 20px; background: #fff; }
+            .hero-content { position: static; width: 100%; transform: none; }
+            h1, .hero-subtitle, .hero-meta { color: #000; opacity: 1; }
+            section { min-height: 0; opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar" aria-label="Main navigation">
+        <div class="nav-container">
+            <div class="nav-title">NeurIPS'26 Workshop</div>
+            <div class="nav-actions">
+                <div class="nav-links" id="nav-links">
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#format" class="nav-link">Format</a>
+                    <a href="#speakers" class="nav-link">Speakers</a>
+                    <a href="#schedule" class="nav-link">Schedule</a>
+                    <a href="#submissions" class="nav-link">Submissions</a>
+                    <a href="#organizers" class="nav-link">Organizers</a>
+                    <a href="#discussion-chairs" class="nav-link">Chairs</a>
+                    <a href="#supported-by" class="nav-link">Support</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+                <label>
+                    <span style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Workshop year</span>
+                    <select class="year-select" id="year-select" aria-label="Workshop year">
+                        <option value="2026" selected>2026</option>
+                        <option value="2025">2025</option>
+                    </select>
+                </label>
+                <button class="menu-button" id="menu-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="nav-links">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-banner">
+        <canvas id="particles-canvas" aria-hidden="true"></canvas>
+        <div class="hero-content">
+            <h1>Foundations of Language Model Security</h1>
+            <div class="hero-subtitle">Theory, Practice, and Fundamental Limits</div>
+            <div class="hero-meta">NeurIPS 2026 Workshop &bull; Paris, France</div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="about">
+            <h2>About the Workshop</h2>
+            <div class="tagline">Secure LLM systems by design before insecure patterns become the default.</div>
+            <p>This workshop aims to advance research on secure-by-design LLM systems by shifting away from the current cat-and-mouse game of attacks and defenses toward a principled understanding of why security vulnerabilities arise and how to address them from the ground up. LLMs have been shown to be vulnerable to a range of attacks such as prompt injections and data poisoning, and yet continue to be deployed in complex systems without a clear understanding of why these vulnerabilities arise or how they interconnect with classical security vulnerabilities.</p>
+            <p>At the model level, the absence of a hard separation between instructions and data may expose fundamental attack surfaces; at the system level, confused-deputy patterns and missing trust boundaries introduce further structural weaknesses. Understanding whether these vulnerabilities are inherent to current language modeling architectures or artifacts of specific design choices is essential for moving from brittle empirical defenses toward principled security.</p>
+            <p>Recent research advocates treating LLM security as a system design problem, with a few approaches achieving provable security in specific settings. However, the field still lacks shared formal definitions of what LLM security means, comparable to differential privacy for privacy guarantees, and securing systems by design remains a use-case-specific engineering effort rather than an application of generic principles.</p>
+            <p>Moreover, existing solutions that offer security guarantees tend to degrade the utility of the system, and it is unclear whether this trade-off is an artifact of current approaches or a more fundamental limit of any LLM system that achieves meaningful security. This workshop aims to consolidate existing knowledge and lay the foundations for future LLM security research by answering three questions:</p>
+
+            <div class="questions-grid">
+                <article class="question-card">
+                    <span class="question-number">Q1</span>
+                    <h3>Formalizing LLM Security</h3>
+                    <p>How should LLM security be formalized? Is there an agreed-upon framework comparable to the notion of differential privacy in privacy research? What role should theory play in creating secure LLM systems?</p>
+                </article>
+                <article class="question-card">
+                    <span class="question-number">Q2</span>
+                    <h3>Security in Practice</h3>
+                    <p>Can we design evaluation methodologies that are reproducible and generalizable rather than fragile and hackable? What concrete steps can help avoid unproductive cycles of attacks and defenses?</p>
+                </article>
+                <article class="question-card">
+                    <span class="question-number">Q3</span>
+                    <h3>Fundamental Limits of Security</h3>
+                    <p>Existing approaches to securing LLM-based systems trade off security for utility. Is this trade-off an artifact of current defense designs, or a more fundamental property that any secure system must exhibit? In which settings has provable security already been achieved, and are there impossibility results establishing conditions under which security cannot be attained?</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="format">
+            <h2>Workshop Format</h2>
+            <p>The workshop will consist of four thematic keynote blocks. Each block will consist of a 45-minute expert keynote followed by a 30-minute guided discussion, in which participants split into groups of 10-15 with an assigned discussion chair.</p>
+            <p>The goal of the discussion is to identify open questions and areas of disagreement that emerge from the keynote. At the end of the discussion, each chair will deliver a 2-minute summary to all attendees. The program will also include a joint poster session, two spotlight contributed talks, and interactive demos to encourage discussion beyond the themes of each block.</p>
+
+            <div class="thematic-blocks">
+                <article class="block-card">
+                    <h3>Memorization, Privacy, and Information Flow Norms <span class="question-ref">[<span class="q1">Q1</span>, <span class="q3">Q3</span>]</span></h3>
+                    <div class="block-keynote">Keynote: Niloofar Mireshghallah</div>
+                </article>
+                <article class="block-card">
+                    <h3>Multi-Agent Security <span class="question-ref">[<span class="q2">Q2</span>, <span class="q3">Q3</span>]</span></h3>
+                    <div class="block-keynote">Keynote: Christian Schroeder de Witt</div>
+                </article>
+                <article class="block-card">
+                    <h3>Contextual Integrity <span class="question-ref">[<span class="q1">Q1</span>]</span></h3>
+                    <div class="block-keynote">Keynote: Reza Shokri</div>
+                </article>
+                <article class="block-card">
+                    <h3>System Security for Agents <span class="question-ref">[<span class="q2">Q2</span>, <span class="q3">Q3</span>]</span></h3>
+                    <div class="block-keynote">Keynote: Somesh Jha</div>
+                </article>
+            </div>
+
+            <div class="format-grid">
+                <div class="format-item">
+                    <div class="format-time">45<span> min</span></div>
+                    <div class="format-label">Expert Keynote</div>
+                </div>
+                <div class="format-item">
+                    <div class="format-time">30<span> min</span></div>
+                    <div class="format-label">Guided Discussion</div>
+                </div>
+                <div class="format-item">
+                    <div class="format-time">10-15</div>
+                    <div class="format-label">Participants per Group</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="speakers">
+            <h2>Invited Speakers</h2>
+            <div class="speakers-list">
+                <article class="speaker-row">
+                    <img class="speaker-photo" src="assets/niloofar.jpg" alt="Niloofar Mireshghallah">
+                    <div class="speaker-info">
+                        <div class="speaker-name"><span>Niloofar Mireshghallah</span></div>
+                        <div class="speaker-affiliation">humans&amp; and CMU</div>
+                        <div class="speaker-topic">Memorization, Privacy, and Information Flow Norms</div>
+                        <div class="speaker-bio">Member of Technical Staff at humans&amp; and incoming Assistant Professor at CMU. She studies privacy, memorization, and contextual integrity in language models.</div>
+                    </div>
+                </article>
+                <article class="speaker-row">
+                    <img class="speaker-photo" src="assets/christian.jpg" alt="Christian Schroeder de Witt">
+                    <div class="speaker-info">
+                        <div class="speaker-name"><a href="https://eng.ox.ac.uk/people/christian-schroeder-de-witt/" target="_blank" rel="noopener">Christian Schroeder de Witt</a></div>
+                        <div class="speaker-affiliation">University of Oxford</div>
+                        <div class="speaker-topic">Multi-Agent Security</div>
+                        <div class="speaker-bio">Principal Investigator of the Oxford Witt Lab at the University of Oxford. He studies multi-agent security and fundamental limits of assurance in agentic systems.</div>
+                    </div>
+                </article>
+                <article class="speaker-row">
+                    <img class="speaker-photo" src="assets/reza.jpg" alt="Reza Shokri">
+                    <div class="speaker-info">
+                        <div class="speaker-name"><a href="https://www.comp.nus.edu.sg/~reza/" target="_blank" rel="noopener">Reza Shokri</a></div>
+                        <div class="speaker-affiliation">Google and National University of Singapore</div>
+                        <div class="speaker-topic">Contextual Integrity</div>
+                        <div class="speaker-bio">Senior Staff Research Scientist at Google Zurich and Dean's Chair Associate Professor at NUS, currently on leave. He studies AI security, data privacy, and trustworthy machine learning.</div>
+                    </div>
+                </article>
+                <article class="speaker-row">
+                    <img class="speaker-photo" src="assets/somesh.jpg" alt="Somesh Jha">
+                    <div class="speaker-info">
+                        <div class="speaker-name"><a href="https://pages.cs.wisc.edu/~jha/" target="_blank" rel="noopener">Somesh Jha</a></div>
+                        <div class="speaker-affiliation">University of Wisconsin-Madison</div>
+                        <div class="speaker-topic">System Security for Agents</div>
+                        <div class="speaker-bio">Lubar Professor of Computer Sciences at the University of Wisconsin-Madison. He works on security, formal methods, adversarial robustness, and privacy for ML systems.</div>
+                    </div>
+                </article>
+            </div>
+
+            <h3 class="subsection-heading">Demo Presenters</h3>
+            <div class="speakers-list">
+                <article class="speaker-row">
+                    <img class="speaker-photo" src="assets/julia.avif" alt="Julia Bazinska">
+                    <div class="speaker-info">
+                        <div class="speaker-name"><a href="https://www.lakera.ai/author/julia-bazinska" target="_blank" rel="noopener">Julia Bazinska</a></div>
+                        <div class="speaker-affiliation">Lakera AI</div>
+                        <div class="speaker-topic">Interactive demonstration</div>
+                        <div class="speaker-bio">Senior Research Engineer at Lakera AI. She researches AI security and adversarial evaluation of agent backbone models.</div>
+                    </div>
+                </article>
+                <article class="speaker-row">
+                    <img class="speaker-photo" src="assets/matthew.webp" alt="Matthew Maisel">
+                    <div class="speaker-info">
+                        <div class="speaker-name"><a href="https://craft-conf.com/2026/speaker/matthewmaisel" target="_blank" rel="noopener">Matthew Maisel</a></div>
+                        <div class="speaker-affiliation">Sondera</div>
+                        <div class="speaker-topic">Interactive demonstration</div>
+                        <div class="speaker-bio">Co-founder and CTO of Sondera. He builds evaluation and runtime harnesses for secure, trustworthy AI agents.</div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="schedule">
+            <h2>Preliminary Schedule</h2>
+            <h3>NeurIPS 2026 &bull; Paris, France &bull; Workshop date and room TBA</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-time">09:00 - 09:10</div>
+                    <div class="timeline-title">Opening Remarks</div>
+                </div>
+                <div class="timeline-item">
+                    <span class="block-tag tag-q2">Q2 &bull; Security in Practice</span>
+                    <div class="timeline-time">09:10 - 11:00</div>
+                    <div class="timeline-title"><strong>Block 1:</strong> Interactive Demos and Posters</div>
+                    <div class="timeline-detail">09:10 - 09:30: Demo by Julia Bazinska [Q2]</div>
+                    <div class="timeline-detail">09:30 - 09:50: Spotlight contributed talks</div>
+                    <div class="timeline-detail">09:50 - 10:40: Poster session</div>
+                    <div class="timeline-detail">10:40 - 11:00: Demo by Matthew Maisel [Q2]</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">11:00 - 11:10</div>
+                    <div class="timeline-title">Break</div>
+                </div>
+                <div class="timeline-item">
+                    <span class="block-tag tag-mixed">Q1 &amp; Q3</span>
+                    <div class="timeline-time">11:10 - 12:30</div>
+                    <div class="timeline-title"><strong>Block 2:</strong> Memorization, Privacy, and Information Flow Norms</div>
+                    <div class="timeline-detail">Keynote: Niloofar Mireshghallah, followed by guided discussion</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">12:30 - 13:30</div>
+                    <div class="timeline-title">Lunch Break</div>
+                </div>
+                <div class="timeline-item">
+                    <span class="block-tag tag-mixed">Q2 &amp; Q3</span>
+                    <div class="timeline-time">13:30 - 14:50</div>
+                    <div class="timeline-title"><strong>Block 3:</strong> Multi-Agent Security</div>
+                    <div class="timeline-detail">Keynote: Christian Schroeder de Witt, followed by guided discussion</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">14:50 - 15:00</div>
+                    <div class="timeline-title">Break</div>
+                </div>
+                <div class="timeline-item">
+                    <span class="block-tag tag-q1">Q1 &bull; Formalizing Security</span>
+                    <div class="timeline-time">15:00 - 16:20</div>
+                    <div class="timeline-title"><strong>Block 4:</strong> Contextual Integrity</div>
+                    <div class="timeline-detail">Keynote: Reza Shokri, followed by guided discussion</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">16:20 - 16:40</div>
+                    <div class="timeline-title">Break</div>
+                </div>
+                <div class="timeline-item">
+                    <span class="block-tag tag-mixed">Q2 &amp; Q3</span>
+                    <div class="timeline-time">16:40 - 18:00</div>
+                    <div class="timeline-title"><strong>Block 5:</strong> System Security for Agents</div>
+                    <div class="timeline-detail">Keynote: Somesh Jha, followed by guided discussion</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="submissions">
+            <h2>Call for Papers</h2>
+            <div class="submission-layout">
+                <div>
+                    <p>We invite non-archival submissions of up to 8 pages (excluding references) in the NeurIPS workshop template. We will use OpenReview to manage submissions, as it allows us to streamline notifications and automatically enforce NeurIPS conflict-of-interest policies.</p>
+                    <p>Each submission will receive at least three reviews from Program Committee members. We will select papers based on their fit with the workshop's foundational themes, clarity, novelty, and potential to seed discussion. One to two accepted papers will be selected as spotlight talks; all accepted papers will be presented as posters.</p>
+                    <h3>Submission Policy</h3>
+                    <ul>
+                        <li>Organizers will not evaluate any submission with which they have a conflict of interest.</li>
+                        <li>In accordance with NeurIPS policy, individuals with a personal conflict of interest with any organizer are not permitted to submit to the workshop.</li>
+                        <li>Previously published work, including NeurIPS main conference papers, is explicitly excluded.</li>
+                        <li>The OpenReview submission link will be announced here.</li>
+                    </ul>
+                </div>
+                <aside class="deadline-box">
+                    <h3>Important Dates</h3>
+                    <div class="deadline">
+                        <div class="deadline-date">August 21, 2026</div>
+                        <div class="deadline-label">Paper submission deadline</div>
+                    </div>
+                    <div class="deadline">
+                        <div class="deadline-date">September 21, 2026</div>
+                        <div class="deadline-label">Review deadline</div>
+                    </div>
+                    <div class="deadline">
+                        <div class="deadline-date">September 29, 2026</div>
+                        <div class="deadline-label">Author notification</div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section id="organizers">
+            <h2>Organizers</h2>
+            <div class="people-grid">
+                <article class="person-card" data-url="https://egozverev.github.io/" tabindex="0" role="link" aria-label="Egor Zverev website">
+                    <div class="person-image"><img src="assets/egor-linkedin.jpg" alt="Egor Zverev"></div>
+                    <div class="person-name">Egor Zverev</div>
+                    <div class="person-affiliation">Institute of Science and Technology Austria</div>
+                </article>
+                <article class="person-card" data-url="https://www.unica.it/unica/en/ateneo_s07_ss01.page?contentId=SHD309503" tabindex="0" role="link" aria-label="Maura Pintor website">
+                    <div class="person-image"><img src="assets/maura.jpg" alt="Maura Pintor"></div>
+                    <div class="person-name">Maura Pintor</div>
+                    <div class="person-affiliation">University of Cagliari</div>
+                </article>
+                <article class="person-card" data-url="https://www.microsoft.com/en-us/research/people/santiago/" tabindex="0" role="link" aria-label="Santiago Zanella-Beguelin website">
+                    <div class="person-image"><img src="assets/santiago.jpg" alt="Santiago Zanella-Beguelin"></div>
+                    <div class="person-name">Santiago Zanella-B&eacute;guelin</div>
+                    <div class="person-affiliation">Microsoft</div>
+                </article>
+                <article class="person-card" data-url="https://profiles.cispa.de/c01ancr" tabindex="0" role="link" aria-label="Ana-Maria Cretu website">
+                    <div class="person-image"><img src="assets/ana-maria.jpg" alt="Ana-Maria Cretu"></div>
+                    <div class="person-name">Ana-Maria Cretu</div>
+                    <div class="person-affiliation">CISPA Helmholtz Center for Information Security</div>
+                </article>
+                <article class="person-card" data-url="https://www.paloaltonetworks.com/perspectives/author/dr-nicole-nichols/" tabindex="0" role="link" aria-label="Nicole Nichols website">
+                    <div class="person-image"><img src="assets/nicole.jpg" alt="Nicole Nichols"></div>
+                    <div class="person-name">Nicole Nichols</div>
+                    <div class="person-affiliation">Palo Alto Networks</div>
+                </article>
+                <article class="person-card" data-url="https://www.uni.li/en/pavel.laskov" tabindex="0" role="link" aria-label="Pavel Laskov website">
+                    <div class="person-image"><img src="assets/pavel.webp" alt="Pavel Laskov"></div>
+                    <div class="person-name">Pavel Laskov</div>
+                    <div class="person-affiliation">University of Liechtenstein</div>
+                </article>
+            </div>
+        </section>
+
+        <section id="discussion-chairs">
+            <h2>Discussion Chairs</h2>
+            <p>Each thematic block will break into small, moderated groups to identify open questions and points of disagreement emerging from the keynote.</p>
+            <div class="tba-panel">To be announced</div>
+        </section>
+
+        <section id="supported-by">
+            <h2>Supported By</h2>
+            <div class="tba-panel">To be announced</div>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-label">General Questions</div>
+                    <div class="contact-name">Egor Zverev</div>
+                    <a class="contact-email" href="mailto:egor.zverev@ist.ac.at">egor.zverev@ist.ac.at</a>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-label">Submission Questions</div>
+                    <div class="contact-name">Maura Pintor</div>
+                    <a class="contact-email" href="mailto:maura.pintor@unica.it">maura.pintor@unica.it</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>NeurIPS 2026 Workshop on Foundations of Language Model Security &bull; Paris, France</footer>
+
+    <script>
+        const navbar = document.getElementById("navbar");
+        const navLinks = document.querySelectorAll(".nav-link");
+        const menuButton = document.getElementById("menu-button");
+        const navLinksContainer = document.getElementById("nav-links");
+        const yearSelect = document.getElementById("year-select");
+
+        function closeMenu() {
+            navLinksContainer.classList.remove("open");
+            menuButton.setAttribute("aria-expanded", "false");
+            menuButton.setAttribute("aria-label", "Open navigation");
+        }
+
+        menuButton.addEventListener("click", () => {
+            const isOpen = navLinksContainer.classList.toggle("open");
+            menuButton.setAttribute("aria-expanded", String(isOpen));
+            menuButton.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+        });
+
+        yearSelect.addEventListener("change", () => {
+            if (yearSelect.value === "2025") {
+                window.location.href = "https://llmsec-eurips.github.io/";
+            }
+        });
+
+        window.addEventListener("scroll", () => {
+            navbar.classList.toggle("scrolled", window.scrollY > 50);
+
+            let current = "";
+            document.querySelectorAll("main section[id]").forEach((section) => {
+                if (window.scrollY >= section.offsetTop - 150) {
+                    current = section.id;
+                }
+            });
+
+            navLinks.forEach((link) => {
+                link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
+            });
+        }, { passive: true });
+
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+            anchor.addEventListener("click", (event) => {
+                const target = document.querySelector(anchor.getAttribute("href"));
+                if (!target) return;
+                event.preventDefault();
+                closeMenu();
+                target.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+        });
+
+        document.querySelectorAll(".person-card[data-url]").forEach((card) => {
+            const openProfile = () => window.open(card.dataset.url, "_blank", "noopener");
+            card.addEventListener("click", () => {
+                if (!window.getSelection().toString()) openProfile();
+            });
+            card.addEventListener("keydown", (event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    openProfile();
+                }
+            });
+        });
+
+        const canvas = document.getElementById("particles-canvas");
+        const context = canvas.getContext("2d");
+        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        let points = [];
+        let mouseX = -1000;
+        let mouseY = -1000;
+        let previousMouseX = -1000;
+        let previousMouseY = -1000;
+        let mouseSpeed = 0;
+        let clickFrames = 0;
+
+        class Point {
+            constructor(x, y) {
+                this.baseX = x;
+                this.baseY = y;
+                this.x = x;
+                this.y = y;
+                this.velocityX = 0;
+                this.velocityY = 0;
+                this.brightness = 0.8;
+            }
+
+            update() {
+                const deltaX = mouseX - this.x;
+                const deltaY = mouseY - this.y;
+                const distance = Math.hypot(deltaX, deltaY);
+
+                if (distance < 250) {
+                    const influence = (1 - distance / 250) * mouseSpeed * 0.0006;
+                    this.velocityX -= deltaX * influence;
+                    this.velocityY -= deltaY * influence;
+                    this.brightness += (1 - this.brightness) * 0.1;
+                } else {
+                    this.brightness += (0.8 - this.brightness) * 0.1;
+                }
+
+                if (clickFrames > 0 && distance < 260) {
+                    const force = Math.sin(distance * 0.05 - clickFrames * 0.3) * (clickFrames / 30);
+                    this.velocityX += (this.x - mouseX) / Math.max(distance, 1) * force;
+                    this.velocityY += (this.y - mouseY) / Math.max(distance, 1) * force;
+                }
+
+                this.velocityX += (this.baseX - this.x) * 0.015;
+                this.velocityY += (this.baseY - this.y) * 0.015;
+                this.x += this.velocityX;
+                this.y += this.velocityY;
+                this.velocityX *= 0.92;
+                this.velocityY *= 0.92;
+            }
+
+            draw() {
+                context.fillStyle = `rgba(255, 255, 255, ${this.brightness})`;
+                context.beginPath();
+                context.arc(this.x, this.y, 0.5, 0, Math.PI * 2);
+                context.fill();
+            }
+        }
+
+        function sizeCanvas() {
+            const scale = window.devicePixelRatio || 1;
+            const width = canvas.offsetWidth;
+            const height = canvas.offsetHeight;
+            canvas.width = width * scale;
+            canvas.height = height * scale;
+            context.setTransform(scale, 0, 0, scale, 0, 0);
+            points = [];
+            for (let x = 0; x <= width; x += 12) {
+                for (let y = 0; y <= height; y += 12) {
+                    points.push(new Point(x, y));
+                }
+            }
+        }
+
+        function animate() {
+            context.fillStyle = "rgba(0, 0, 0, 0.05)";
+            context.fillRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
+            const currentSpeed = Math.hypot(mouseX - previousMouseX, mouseY - previousMouseY);
+            mouseSpeed = mouseSpeed * 0.7 + currentSpeed * 0.3;
+            points.forEach((point) => {
+                point.update();
+                point.draw();
+            });
+            previousMouseX = mouseX;
+            previousMouseY = mouseY;
+            clickFrames = Math.max(0, clickFrames - 1);
+            requestAnimationFrame(animate);
+        }
+
+        if (!reducedMotion) {
+            sizeCanvas();
+            canvas.addEventListener("pointermove", (event) => {
+                const bounds = canvas.getBoundingClientRect();
+                mouseX = event.clientX - bounds.left;
+                mouseY = event.clientY - bounds.top;
+            });
+            canvas.addEventListener("pointerleave", () => {
+                mouseX = -1000;
+                mouseY = -1000;
+                mouseSpeed = 0;
+            });
+            canvas.addEventListener("pointerdown", () => { clickFrames = 30; });
+            window.addEventListener("resize", sizeCanvas);
+            animate();
+        }
+    </script>
+</body>
+</html>
