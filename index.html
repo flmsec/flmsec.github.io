@@ -360,15 +360,19 @@
         }
 
         .question-card:nth-child(1) .question-number {
-            color: rgba(21, 101, 192, 0.20);
+            color: #1565c0;
         }
 
         .question-card:nth-child(2) .question-number {
-            color: rgba(123, 31, 162, 0.20);
+            color: #7b1fa2;
         }
 
         .question-card:nth-child(3) .question-number {
-            color: rgba(199, 91, 0, 0.20);
+            color: #c75b00;
+        }
+
+        .question-card {
+            scroll-margin-top: 85px;
         }
 
         .question-card h3,
@@ -393,9 +397,25 @@
             white-space: nowrap;
         }
 
+        .question-ref a {
+            text-decoration: none;
+            text-underline-offset: 2px;
+        }
+
+        .question-ref a:hover,
+        .question-ref a:focus-visible {
+            text-decoration: underline;
+        }
+
         .question-ref .q1 { color: #1565c0; }
         .question-ref .q2 { color: #7b1fa2; }
         .question-ref .q3 { color: #c75b00; }
+
+        .thematic-blocks .block-card:last-child:nth-child(odd) {
+            grid-column: 1 / -1;
+            width: calc(50% - 12.5px);
+            justify-self: center;
+        }
 
         .question-card p,
         .block-card p {
@@ -907,6 +927,11 @@
                 grid-column: auto;
             }
 
+            .thematic-blocks .block-card:last-child:nth-child(odd) {
+                grid-column: auto;
+                width: 100%;
+            }
+
             .speaker-row {
                 flex-direction: column;
             }
@@ -1002,17 +1027,17 @@
             <p>Moreover, existing solutions that offer security guarantees tend to degrade the utility of the system, and it is unclear whether this trade-off is an artifact of current approaches or a more fundamental limit of any LLM system that achieves meaningful security. This workshop aims to consolidate existing knowledge and lay the foundations for future LLM security research by answering three questions:</p>
 
             <div class="questions-grid">
-                <article class="question-card">
+                <article class="question-card" id="question-1">
                     <span class="question-number">Q1</span>
                     <h3>Formalizing LLM Security</h3>
                     <p>How should LLM security be formalized? Is there an agreed-upon framework comparable to the notion of differential privacy in privacy research? What role should theory play in creating secure LLM systems?</p>
                 </article>
-                <article class="question-card">
+                <article class="question-card" id="question-2">
                     <span class="question-number">Q2</span>
                     <h3>Security in Practice</h3>
                     <p>Can we design evaluation methodologies that are reproducible and generalizable rather than fragile and hackable? What concrete steps can help avoid unproductive cycles of attacks and defenses?</p>
                 </article>
-                <article class="question-card">
+                <article class="question-card" id="question-3">
                     <span class="question-number">Q3</span>
                     <h3>Fundamental Limits of Security</h3>
                     <p>Existing approaches to securing LLM-based systems trade off security for utility. Is this trade-off an artifact of current defense designs, or a more fundamental property that any secure system must exhibit? In which settings has provable security already been achieved, and are there impossibility results establishing conditions under which security cannot be attained?</p>
@@ -1022,25 +1047,29 @@
 
         <section id="format">
             <h2>Workshop Format</h2>
-            <p>The workshop will consist of four thematic keynote blocks. Each block will consist of a 45-minute expert keynote followed by a 30-minute guided discussion, in which participants split into groups of 10-15 with an assigned discussion chair.</p>
-            <p>The goal of the discussion is to identify open questions and areas of disagreement that emerge from the keynote. At the end of the discussion, each chair will deliver a 2-minute summary to all attendees. The program will also include a joint poster session, two spotlight contributed talks, and interactive demos to encourage discussion beyond the themes of each block.</p>
+            <p>The workshop will consist of five thematic keynote blocks. Each block will consist of a 45-minute expert keynote followed by a 30-minute guided discussion, in which participants split into groups of 10-15 with an assigned discussion chair.</p>
+            <p>The goal of the discussion is to identify open questions that emerge from the keynote. At the end of the discussion, each chair will deliver a 2-minute summary to all attendees. The program will also include a joint poster session, two spotlight contributed talks, and interactive demos to encourage discussion beyond the themes of each block.</p>
 
             <div class="thematic-blocks">
                 <article class="block-card">
-                    <h3>Memorization, Privacy, and Information Flow Norms <span class="question-ref">[<span class="q1">Q1</span>, <span class="q3">Q3</span>]</span></h3>
+                    <h3>Memorization, Privacy, and Information Flow Norms <span class="question-ref">[<a class="q1" href="#question-1">Q1</a>, <a class="q3" href="#question-3">Q3</a>]</span></h3>
                     <div class="block-keynote">Keynote: Niloofar Mireshghallah</div>
                 </article>
                 <article class="block-card">
-                    <h3>Multi-Agent Security <span class="question-ref">[<span class="q2">Q2</span>, <span class="q3">Q3</span>]</span></h3>
+                    <h3>Multi-Agent Security <span class="question-ref">[<a class="q2" href="#question-2">Q2</a>, <a class="q3" href="#question-3">Q3</a>]</span></h3>
                     <div class="block-keynote">Keynote: Christian Schroeder de Witt</div>
                 </article>
                 <article class="block-card">
-                    <h3>Contextual Integrity <span class="question-ref">[<span class="q1">Q1</span>]</span></h3>
+                    <h3>Contextual Integrity <span class="question-ref">[<a class="q1" href="#question-1">Q1</a>]</span></h3>
                     <div class="block-keynote">Keynote: Reza Shokri</div>
                 </article>
                 <article class="block-card">
-                    <h3>System Security for Agents <span class="question-ref">[<span class="q2">Q2</span>, <span class="q3">Q3</span>]</span></h3>
+                    <h3>System Security for Agents <span class="question-ref">[<a class="q2" href="#question-2">Q2</a>, <a class="q3" href="#question-3">Q3</a>]</span></h3>
                     <div class="block-keynote">Keynote: Somesh Jha</div>
+                </article>
+                <article class="block-card">
+                    <h3>Trustworthy AI and ML Systems <span class="question-ref">[<a class="q1" href="#question-1">Q1</a>, <a class="q2" href="#question-2">Q2</a>, <a class="q3" href="#question-3">Q3</a>]</span></h3>
+                    <div class="block-keynote">Keynote: David Evans</div>
                 </article>
             </div>
 
@@ -1099,6 +1128,15 @@
                         <div class="speaker-bio">Somesh is a Lubar Professor of Computer Sciences at the University of Wisconsin-Madison. He works on security, formal methods, adversarial robustness, and privacy for ML systems.</div>
                     </div>
                 </article>
+                <article class="speaker-row">
+                    <img class="speaker-photo" src="assets/david-square.jpg" alt="David Evans">
+                    <div class="speaker-info">
+                        <div class="speaker-name"><a href="https://www.cs.virginia.edu/~evans/" target="_blank" rel="noopener">David Evans</a></div>
+                        <div class="speaker-affiliation">University of Virginia</div>
+                        <div class="speaker-topic">Trustworthy AI and ML Systems</div>
+                        <div class="speaker-bio">David is the Olsen Bicentennial Professor of Engineering and Professor of Computer Science at the University of Virginia. His group studies trustworthy AI and ML, focusing on privacy, security, and secure computation.</div>
+                    </div>
+                </article>
             </div>
 
             <h3 class="subsection-heading">Demo Presenters</h3>
@@ -1109,7 +1147,7 @@
                         <div class="speaker-name"><a href="https://www.lakera.ai/author/julia-bazinska" target="_blank" rel="noopener">Julia Bazinska</a></div>
                         <div class="speaker-affiliation">Lakera AI</div>
                         <div class="speaker-topic">Interactive demonstration</div>
-                        <div class="speaker-bio">Julia is a Senior Research Engineer at Lakera AI. She researches AI security and adversarial evaluation of agent backbone models.</div>
+                        <div class="speaker-bio">Julia is a Senior Research Engineer at Lakera AI, where she works on AI security and adversarial evaluation of backbone LLMs in agents.</div>
                     </div>
                 </article>
                 <article class="speaker-row">
@@ -1118,70 +1156,15 @@
                         <div class="speaker-name"><a href="https://craft-conf.com/2026/speaker/matthewmaisel" target="_blank" rel="noopener">Matthew Maisel</a></div>
                         <div class="speaker-affiliation">Sondera</div>
                         <div class="speaker-topic">Interactive demonstration</div>
-                        <div class="speaker-bio">Matthew is the Co-founder and CTO of Sondera. He builds evaluation and runtime harnesses for secure, trustworthy AI agents.</div>
+                        <div class="speaker-bio">Matthew is the co-founder and CTO of Sondera, where he builds evaluation and runtime policy-enforcement systems for trustworthy AI agents.</div>
                     </div>
                 </article>
             </div>
         </section>
 
         <section id="schedule">
-            <h2>Preliminary Schedule</h2>
-            <h3>NeurIPS 2026 &bull; Paris, France &bull; Workshop date and room TBA</h3>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-time">09:00 - 09:10</div>
-                    <div class="timeline-title">Opening Remarks</div>
-                </div>
-                <div class="timeline-item">
-                    <span class="block-tag tag-q2">Q2 &bull; Security in Practice</span>
-                    <div class="timeline-time">09:10 - 11:00</div>
-                    <div class="timeline-title"><strong>Block 1:</strong> Interactive Demos and Posters</div>
-                    <div class="timeline-detail">09:10 - 09:30: Demo by Julia Bazinska [Q2]</div>
-                    <div class="timeline-detail">09:30 - 09:50: Spotlight contributed talks</div>
-                    <div class="timeline-detail">09:50 - 10:40: Poster session</div>
-                    <div class="timeline-detail">10:40 - 11:00: Demo by Matthew Maisel [Q2]</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-time">11:00 - 11:10</div>
-                    <div class="timeline-title">Break</div>
-                </div>
-                <div class="timeline-item">
-                    <span class="block-tag tag-mixed">Q1 &amp; Q3</span>
-                    <div class="timeline-time">11:10 - 12:30</div>
-                    <div class="timeline-title"><strong>Block 2:</strong> Memorization, Privacy, and Information Flow Norms</div>
-                    <div class="timeline-detail">Keynote: Niloofar Mireshghallah, followed by guided discussion</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-time">12:30 - 13:30</div>
-                    <div class="timeline-title">Lunch Break</div>
-                </div>
-                <div class="timeline-item">
-                    <span class="block-tag tag-mixed">Q2 &amp; Q3</span>
-                    <div class="timeline-time">13:30 - 14:50</div>
-                    <div class="timeline-title"><strong>Block 3:</strong> Multi-Agent Security</div>
-                    <div class="timeline-detail">Keynote: Christian Schroeder de Witt, followed by guided discussion</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-time">14:50 - 15:00</div>
-                    <div class="timeline-title">Break</div>
-                </div>
-                <div class="timeline-item">
-                    <span class="block-tag tag-q1">Q1 &bull; Formalizing Security</span>
-                    <div class="timeline-time">15:00 - 16:20</div>
-                    <div class="timeline-title"><strong>Block 4:</strong> Contextual Integrity</div>
-                    <div class="timeline-detail">Keynote: Reza Shokri, followed by guided discussion</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-time">16:20 - 16:40</div>
-                    <div class="timeline-title">Break</div>
-                </div>
-                <div class="timeline-item">
-                    <span class="block-tag tag-mixed">Q2 &amp; Q3</span>
-                    <div class="timeline-time">16:40 - 18:00</div>
-                    <div class="timeline-title"><strong>Block 5:</strong> System Security for Agents</div>
-                    <div class="timeline-detail">Keynote: Somesh Jha, followed by guided discussion</div>
-                </div>
-            </div>
+            <h2>Schedule</h2>
+            <div class="tba-panel">To be announced</div>
         </section>
 
         <section id="submissions">
@@ -1254,7 +1237,7 @@
 
         <section id="discussion-chairs">
             <h2>Discussion Chairs</h2>
-            <p>Each thematic block will break into small, moderated groups to identify open questions and points of disagreement emerging from the keynote.</p>
+            <p>Each thematic block will break into small, moderated groups to identify open questions from the keynote.</p>
             <div class="tba-panel">To be announced</div>
         </section>
 
