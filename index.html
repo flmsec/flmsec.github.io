@@ -437,8 +437,9 @@
 
         .format-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, 1fr) auto;
             gap: 25px;
+            align-items: center;
             margin: 60px 0;
             padding: 60px 0;
             border-top: 1px solid var(--border-light);
@@ -480,6 +481,13 @@
             font-weight: 600;
             letter-spacing: 1.2px;
             text-transform: uppercase;
+        }
+
+        .format-repeat {
+            color: var(--text-secondary);
+            font-size: 2.7rem;
+            font-weight: 100;
+            white-space: nowrap;
         }
 
         .speakers-list {
@@ -695,6 +703,28 @@
         .deadline-label {
             color: var(--text-tertiary);
             font-size: 0.82rem;
+        }
+
+        .submit-button {
+            display: inline-block;
+            margin-top: 12px;
+            border: 1px solid var(--primary-black);
+            border-radius: 4px;
+            background: var(--primary-black);
+            color: #fff;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            padding: 12px 20px;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .submit-button:hover,
+        .submit-button:focus-visible {
+            background: #fff;
+            color: var(--primary-black);
         }
 
         .people-grid {
@@ -986,7 +1016,7 @@
                 <div class="nav-links" id="nav-links">
                     <a href="#about" class="nav-link">About</a>
                     <a href="#format" class="nav-link">Format</a>
-                    <a href="#speakers" class="nav-link">Speakers</a>
+                    <!-- <a href="#speakers" class="nav-link">Speakers</a> -->
                     <a href="#schedule" class="nav-link">Schedule</a>
                     <a href="#submissions" class="nav-link">Submissions</a>
                     <a href="#organizers" class="nav-link">Organizers</a>
@@ -1013,7 +1043,7 @@
         <div class="hero-content">
             <h1>Foundations of Language Model Security</h1>
             <div class="hero-subtitle">Theory, Practice, and Fundamental Limits</div>
-            <div class="hero-meta">NeurIPS 2026 Workshop &bull; Paris, France</div>
+            <div class="hero-meta">NeurIPS 2026 Workshop &bull; December 12&ndash;13 &bull; Paris, France</div>
         </div>
     </header>
 
@@ -1050,28 +1080,30 @@
             <p>The workshop will consist of five thematic keynote blocks. Each block will consist of a 45-minute expert keynote followed by a 30-minute guided discussion, in which participants split into groups of 10-15 with an assigned discussion chair.</p>
             <p>The goal of the discussion is to identify open questions that emerge from the keynote. At the end of the discussion, each chair will deliver a 2-minute summary to all attendees. The program will also include a joint poster session, two spotlight contributed talks, and interactive demos to encourage discussion beyond the themes of each block.</p>
 
+            <!-- Temporarily hidden until all keynote topics are finalized.
             <div class="thematic-blocks">
                 <article class="block-card">
-                    <h3>Memorization, Privacy, and Information Flow Norms <span class="question-ref">[<a class="q1" href="#question-1">Q1</a>, <a class="q3" href="#question-3">Q3</a>]</span></h3>
-                    <div class="block-keynote">Keynote: Niloofar Mireshghallah</div>
-                </article>
-                <article class="block-card">
-                    <h3>Multi-Agent Security <span class="question-ref">[<a class="q2" href="#question-2">Q2</a>, <a class="q3" href="#question-3">Q3</a>]</span></h3>
+                    <h3>Fundamental Limits of Security <span class="question-ref">[<a class="q3" href="#question-3">Q3</a>]</span></h3>
                     <div class="block-keynote">Keynote: Christian Schroeder de Witt</div>
                 </article>
                 <article class="block-card">
-                    <h3>Contextual Integrity <span class="question-ref">[<a class="q1" href="#question-1">Q1</a>]</span></h3>
+                    <h3>Privacy in AI Agents <span class="question-ref">[<a class="q1" href="#question-1">Q1</a>, <a class="q2" href="#question-2">Q2</a>]</span></h3>
                     <div class="block-keynote">Keynote: Reza Shokri</div>
                 </article>
                 <article class="block-card">
-                    <h3>System Security for Agents <span class="question-ref">[<a class="q2" href="#question-2">Q2</a>, <a class="q3" href="#question-3">Q3</a>]</span></h3>
-                    <div class="block-keynote">Keynote: Somesh Jha</div>
+                    <h3>To be announced</h3>
+                    <div class="block-keynote">Keynote speaker to be announced</div>
                 </article>
                 <article class="block-card">
-                    <h3>Trustworthy AI and ML Systems <span class="question-ref">[<a class="q1" href="#question-1">Q1</a>, <a class="q2" href="#question-2">Q2</a>, <a class="q3" href="#question-3">Q3</a>]</span></h3>
-                    <div class="block-keynote">Keynote: David Evans</div>
+                    <h3>To be announced</h3>
+                    <div class="block-keynote">Keynote speaker to be announced</div>
+                </article>
+                <article class="block-card">
+                    <h3>To be announced</h3>
+                    <div class="block-keynote">Keynote speaker to be announced</div>
                 </article>
             </div>
+            -->
 
             <div class="format-grid">
                 <div class="format-item">
@@ -1086,6 +1118,7 @@
                     <div class="format-time">10-15</div>
                     <div class="format-label">Participants per Group</div>
                 </div>
+                <div class="format-repeat" aria-label="Repeated five times">&times;5</div>
             </div>
         </section>
 
@@ -1097,7 +1130,7 @@
                     <div class="speaker-info">
                         <div class="speaker-name"><span>Niloofar Mireshghallah</span></div>
                         <div class="speaker-affiliation">humans&amp; and CMU</div>
-                        <div class="speaker-topic">Memorization, Privacy, and Information Flow Norms</div>
+                        <div class="speaker-topic">To be announced</div>
                         <div class="speaker-bio">Niloofar is a member of Technical Staff at humans&amp; and incoming Assistant Professor at CMU. She studies privacy, memorization, and contextual integrity in language models.</div>
                     </div>
                 </article>
@@ -1106,7 +1139,7 @@
                     <div class="speaker-info">
                         <div class="speaker-name"><a href="https://eng.ox.ac.uk/people/christian-schroeder-de-witt/" target="_blank" rel="noopener">Christian Schroeder de Witt</a></div>
                         <div class="speaker-affiliation">University of Oxford</div>
-                        <div class="speaker-topic">Multi-Agent Security</div>
+                        <div class="speaker-topic">Fundamental Limits of Security</div>
                         <div class="speaker-bio">Christian is the Principal Investigator of the Oxford Witt Lab at the University of Oxford. He studies multi-agent security and fundamental limits of assurance in agentic systems.</div>
                     </div>
                 </article>
@@ -1115,7 +1148,7 @@
                     <div class="speaker-info">
                         <div class="speaker-name"><a href="https://www.comp.nus.edu.sg/~reza/" target="_blank" rel="noopener">Reza Shokri</a></div>
                         <div class="speaker-affiliation">Google and National University of Singapore</div>
-                        <div class="speaker-topic">Contextual Integrity</div>
+                        <div class="speaker-topic">Privacy in AI Agents (Q1 and Q2)</div>
                         <div class="speaker-bio">Reza is a Senior Staff Research Scientist at Google Zurich and Dean's Chair Associate Professor at NUS, currently on leave. He studies AI security, data privacy, and trustworthy machine learning.</div>
                     </div>
                 </article>
@@ -1124,7 +1157,7 @@
                     <div class="speaker-info">
                         <div class="speaker-name"><a href="https://pages.cs.wisc.edu/~jha/" target="_blank" rel="noopener">Somesh Jha</a></div>
                         <div class="speaker-affiliation">University of Wisconsin-Madison</div>
-                        <div class="speaker-topic">System Security for Agents</div>
+                        <div class="speaker-topic">To be announced</div>
                         <div class="speaker-bio">Somesh is a Lubar Professor of Computer Sciences at the University of Wisconsin-Madison. He works on security, formal methods, adversarial robustness, and privacy for ML systems.</div>
                     </div>
                 </article>
@@ -1133,7 +1166,7 @@
                     <div class="speaker-info">
                         <div class="speaker-name"><a href="https://www.cs.virginia.edu/~evans/" target="_blank" rel="noopener">David Evans</a></div>
                         <div class="speaker-affiliation">University of Virginia</div>
-                        <div class="speaker-topic">Trustworthy AI and ML Systems</div>
+                        <div class="speaker-topic">To be announced</div>
                         <div class="speaker-bio">David is the Olsen Bicentennial Professor of Engineering and Professor of Computer Science at the University of Virginia. He studies trustworthy AI and ML, focusing on privacy, security, and secure computation.</div>
                     </div>
                 </article>
@@ -1161,6 +1194,7 @@
                 </article>
             </div>
         </section>
+       
 
         <section id="schedule">
             <h2>Schedule</h2>
@@ -1172,28 +1206,37 @@
             <div class="submission-layout">
                 <div>
                     <p>We invite non-archival submissions of up to 8 pages (excluding references) in the NeurIPS workshop template. We will use OpenReview to manage submissions, as it allows us to streamline notifications and automatically enforce NeurIPS conflict-of-interest policies.</p>
-                    <p>Each submission will receive at least three reviews from Program Committee members. We will select papers based on their fit with the workshop's foundational themes, clarity, novelty, and potential to seed discussion. One to two accepted papers will be selected as spotlight talks; all accepted papers will be presented as posters.</p>
+                    <p>Submissions will be managed through <a href="https://openreview.net/group?id=NeurIPS.cc/2026/Workshop/FLMSec" target="_blank" rel="noopener">OpenReview</a>. All accepted papers will be presented as posters, with one to two selected for short talks and receiving a best paper award.</p>
                     <h3>Submission Policy</h3>
                     <ul>
-                        <li>Organizers will not evaluate any submission with which they have a conflict of interest.</li>
                         <li>In accordance with NeurIPS policy, individuals with a personal conflict of interest with any organizer are not permitted to submit to the workshop.</li>
-                        <li>Previously published work, including NeurIPS main conference papers, is explicitly excluded.</li>
-                        <li>The OpenReview submission link will be announced here.</li>
+                        <li>Previously published work is not eligible.</li>
+                        <li>We recommend all authors register on OpenReview at least two weeks before the submission deadline.</li>
                     </ul>
+                    <a class="submit-button" href="https://openreview.net/group?id=NeurIPS.cc/2026/Workshop/FLMSec" target="_blank" rel="noopener">Submit via OpenReview</a>
                 </div>
                 <aside class="deadline-box">
                     <h3>Important Dates</h3>
+                    <p>All deadlines are 23:59 AoE (Anywhere on Earth).</p>
                     <div class="deadline">
-                        <div class="deadline-date">August 21, 2026</div>
-                        <div class="deadline-label">Paper submission deadline</div>
+                        <div class="deadline-date">July 23, 2026</div>
+                        <div class="deadline-label">Submissions open</div>
                     </div>
                     <div class="deadline">
-                        <div class="deadline-date">September 21, 2026</div>
-                        <div class="deadline-label">Review deadline</div>
+                        <div class="deadline-date">August 22, 2026</div>
+                        <div class="deadline-label">Submission deadline</div>
                     </div>
                     <div class="deadline">
-                        <div class="deadline-date">September 29, 2026</div>
-                        <div class="deadline-label">Author notification</div>
+                        <div class="deadline-date">August 22 &ndash; 25, 2026</div>
+                        <div class="deadline-label">Reviewer bidding</div>
+                    </div>
+                    <div class="deadline">
+                        <div class="deadline-date">August 25 &ndash; September 25, 2026</div>
+                        <div class="deadline-label">Reviewing period</div>
+                    </div>
+                    <div class="deadline">
+                        <div class="deadline-date">September 25 &ndash; 29, 2026</div>
+                        <div class="deadline-label">Decisions</div>
                     </div>
                 </aside>
             </div>
