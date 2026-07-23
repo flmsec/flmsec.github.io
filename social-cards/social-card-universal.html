@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200, initial-scale=1">
+<title>FLMSec 2026 Social Card - Universal</title>
+<style>
+    :root {
+        --ink: #202725;
+        --paper: #f7f8f6;
+        --accent: #71848a;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        width: 1200px;
+        height: 840px;
+        overflow: hidden;
+        background: var(--ink);
+        font-family: Aptos, "Segoe UI", sans-serif;
+    }
+
+    .card {
+        position: relative;
+        width: 1200px;
+        height: 840px;
+        overflow: hidden;
+        border: 16px solid var(--ink);
+        background: var(--paper);
+        color: var(--ink);
+    }
+
+    .top-rule {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: 4px;
+        background: var(--accent);
+    }
+
+    .content {
+        padding: 43px 58px 220px;
+    }
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .eyebrow,
+    .status,
+    .section-label,
+    .footer-label {
+        font-size: 15px;
+        font-weight: 750;
+        letter-spacing: 2.2px;
+        text-transform: uppercase;
+    }
+
+    .eyebrow {
+        color: rgba(32, 39, 37, 0.82);
+    }
+
+    .status {
+        border: 1px solid var(--ink);
+        background: var(--ink);
+        color: var(--paper);
+        padding: 9px 14px;
+    }
+
+    h1 {
+        max-width: 1010px;
+        margin-top: 42px;
+        font-family: Cambria, Georgia, serif;
+        font-size: 68px;
+        font-weight: 600;
+        letter-spacing: 0;
+        line-height: 1.02;
+    }
+
+    .subtitle {
+        margin-top: 18px;
+        color: rgba(32, 39, 37, 0.72);
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+    }
+
+    .speakers {
+        margin-top: 38px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(32, 39, 37, 0.2);
+    }
+
+    .section-label {
+        margin-bottom: 15px;
+        color: rgba(32, 39, 37, 0.68);
+        font-size: 13px;
+    }
+
+    .speaker-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 13px 54px;
+    }
+
+    .speaker {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        min-width: 0;
+    }
+
+    .speaker img {
+        flex: 0 0 auto;
+        width: 72px;
+        height: 72px;
+        border: 2px solid var(--paper);
+        border-radius: 50%;
+        box-shadow: 0 0 0 1px rgba(32, 39, 37, 0.35);
+        object-fit: cover;
+    }
+
+    .speaker-name {
+        color: var(--ink);
+        font-size: 21px;
+        font-weight: 750;
+        line-height: 1.18;
+    }
+
+    .speaker-affiliation {
+        margin-top: 4px;
+        color: rgba(32, 39, 37, 0.68);
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 1.25;
+    }
+
+    .demos {
+        margin-top: 16px;
+        color: rgba(32, 39, 37, 0.76);
+        font-size: 17px;
+        font-weight: 600;
+    }
+
+    .demos strong {
+        margin-right: 8px;
+        color: var(--ink);
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+    }
+
+    .footer {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: grid;
+        grid-template-columns: 1fr 1.08fr;
+        height: 190px;
+        background: var(--ink);
+        color: var(--paper);
+    }
+
+    .event,
+    .deadline {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 28px 58px;
+    }
+
+    .event {
+        border-right: 1px solid rgba(247, 248, 246, 0.18);
+    }
+
+    .footer-label {
+        margin-bottom: 10px;
+        color: rgba(247, 248, 246, 0.58);
+        font-size: 12px;
+    }
+
+    .event-date,
+    .deadline-date {
+        font-family: Cambria, Georgia, serif;
+        font-size: 36px;
+        font-weight: 700;
+        line-height: 1.08;
+    }
+
+    .event-place {
+        margin-top: 7px;
+        color: rgba(247, 248, 246, 0.7);
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .deadline {
+        position: relative;
+        background: var(--ink);
+    }
+
+    .deadline::before {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 4px;
+        background: var(--accent);
+        content: "";
+    }
+
+    .deadline .footer-label {
+        color: var(--accent);
+    }
+
+    .deadline-time {
+        margin-top: 8px;
+        color: rgba(247, 248, 246, 0.7);
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+</style>
+</head>
+<body>
+<div class="card">
+    <div class="top-rule" aria-hidden="true"><span></span><span></span><span></span></div>
+
+    <main class="content">
+        <header class="header">
+            <div class="eyebrow">NeurIPS 2026 Workshop</div>
+            <div class="status">Call for Papers</div>
+        </header>
+
+        <h1>Foundations of<br>Language Model Security</h1>
+        <div class="subtitle">Theory, Practice &amp; Fundamental Limits</div>
+
+        <section class="speakers" aria-label="Invited speakers">
+            <div class="section-label">Invited Speakers</div>
+            <div class="speaker-grid">
+                <div class="speaker">
+                    <img src="../assets/niloofar.jpg" alt="">
+                    <div><div class="speaker-name">Niloofar Mireshghallah</div><div class="speaker-affiliation">humans&amp; &amp; CMU</div></div>
+                </div>
+                <div class="speaker">
+                    <img src="../assets/christian.jpg" alt="">
+                    <div><div class="speaker-name">Christian Schroeder de Witt</div><div class="speaker-affiliation">University of Oxford</div></div>
+                </div>
+                <div class="speaker">
+                    <img src="../assets/reza.jpg" alt="">
+                    <div><div class="speaker-name">Reza Shokri</div><div class="speaker-affiliation">Google &amp; NUS</div></div>
+                </div>
+                <div class="speaker">
+                    <img src="../assets/somesh.jpg" alt="">
+                    <div><div class="speaker-name">Somesh Jha</div><div class="speaker-affiliation">UW&ndash;Madison</div></div>
+                </div>
+            </div>
+            <div class="demos"><strong>Interactive demos</strong> Julia Bazinska (Lakera AI) &middot; Matthew Maisel (Sondera)</div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="event">
+            <div class="footer-label">Workshop</div>
+            <div class="event-date">December 12&ndash;13, 2026</div>
+            <div class="event-place">Paris, France</div>
+        </div>
+        <div class="deadline">
+            <div class="footer-label">Submission Deadline</div>
+            <div class="deadline-date">August 22, 2026</div>
+            <div class="deadline-time">23:59 AoE &middot; Submit via OpenReview</div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
