@@ -709,6 +709,12 @@
             font-size: 0.82rem;
         }
 
+        .submission-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
         .submit-button {
             display: inline-block;
             margin-top: 12px;
@@ -1222,7 +1228,10 @@
                         <li>Previously published work is not eligible.</li>
                         <li>We recommend all authors register on OpenReview at least two weeks before the submission deadline.</li>
                     </ul>
-                    <a class="submit-button" href="https://openreview.net/group?id=NeurIPS.cc/2026/Workshop/FLMSec" target="_blank" rel="noopener">Submit via OpenReview</a>
+                    <div class="submission-actions">
+                        <a class="submit-button" href="https://openreview.net/group?id=NeurIPS.cc/2026/Workshop/FLMSec" target="_blank" rel="noopener">Submit via OpenReview</a>
+                        <a class="submit-button" href="https://docs.google.com/forms/d/e/1FAIpQLSdWvZy5HUKlbGEjFFg2mEF5iS61pDRW9Ce_TrXYSKsAi_-ncg/viewform?usp=dialog" target="_blank" rel="noopener">Call for Reviewers</a>
+                    </div>
                 </div>
                 <aside class="deadline-box">
                     <h3>Important Dates</h3>
@@ -1230,6 +1239,10 @@
                     <div class="deadline">
                         <div class="deadline-date">July 23, 2026</div>
                         <div class="deadline-label">Submissions open</div>
+                    </div>
+                    <div class="deadline">
+                        <div class="deadline-date">August 21, 2026</div>
+                        <div class="deadline-label">Reviewer application deadline</div>
                     </div>
                     <div class="deadline">
                         <div class="deadline-date">August 22, 2026</div>
