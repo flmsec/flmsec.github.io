@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200, initial-scale=1">
+<title>FLMSec 2026 Deadlines Extended</title>
+<style>
+    :root {
+        --ink: #202725;
+        --paper: #f7f8f6;
+        --accent: #71848a;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        width: 1200px;
+        height: 840px;
+        overflow: hidden;
+        background: var(--ink);
+        font-family: Aptos, "Segoe UI", sans-serif;
+    }
+
+    .card {
+        position: relative;
+        width: 1200px;
+        height: 840px;
+        overflow: hidden;
+        border: 16px solid var(--ink);
+        background: var(--paper);
+        color: var(--ink);
+    }
+
+    .top-rule {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: 4px;
+        background: var(--accent);
+    }
+
+    .content {
+        height: 100%;
+        padding: 45px 58px 170px;
+    }
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .eyebrow,
+    .deadline-label,
+    .date-caption,
+    .footer-label {
+        font-weight: 750;
+        letter-spacing: 2.2px;
+        text-transform: uppercase;
+    }
+
+    .eyebrow {
+        color: rgba(32, 39, 37, 0.82);
+        font-size: 15px;
+    }
+
+    h1 {
+        margin-top: 35px;
+        font-family: Cambria, Georgia, serif;
+        font-size: 66px;
+        font-weight: 600;
+        letter-spacing: 0;
+        line-height: 0.98;
+    }
+
+    .workshop-name {
+        margin-top: 16px;
+        color: rgba(32, 39, 37, 0.68);
+        font-size: 19px;
+        font-weight: 650;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .deadlines {
+        margin-top: 38px;
+        border-top: 1px solid rgba(32, 39, 37, 0.2);
+        border-bottom: 1px solid rgba(32, 39, 37, 0.2);
+    }
+
+    .deadline-row {
+        display: grid;
+        grid-template-columns: 255px 1fr;
+        align-items: center;
+        min-height: 142px;
+        padding: 24px 0;
+    }
+
+    .deadline-row + .deadline-row {
+        border-top: 1px solid rgba(32, 39, 37, 0.16);
+    }
+
+    .deadline-label {
+        color: rgba(32, 39, 37, 0.62);
+        font-size: 14px;
+        line-height: 1.45;
+    }
+
+    .date-change {
+        display: grid;
+        grid-template-columns: 220px 44px 1fr;
+        align-items: start;
+        gap: 20px;
+    }
+
+    .date-caption {
+        margin-bottom: 8px;
+        color: rgba(32, 39, 37, 0.48);
+        font-size: 11px;
+    }
+
+    .date-caption.new {
+        color: var(--accent);
+    }
+
+    .date-value {
+        font-family: Cambria, Georgia, serif;
+        font-size: 43px;
+        font-weight: 700;
+        line-height: 0.95;
+        white-space: nowrap;
+    }
+
+    .date-value.old {
+        color: rgba(32, 39, 37, 0.46);
+        text-decoration: line-through;
+        text-decoration-thickness: 2px;
+    }
+
+    .date-value.new {
+        color: var(--ink);
+    }
+
+    .date-time {
+        margin-top: 8px;
+        color: rgba(32, 39, 37, 0.64);
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+
+    .arrow {
+        align-self: start;
+        margin-top: 24px;
+        color: var(--accent);
+        font-size: 38px;
+        font-weight: 300;
+        line-height: 1;
+    }
+
+    .footer {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        height: 150px;
+        background: var(--ink);
+        color: var(--paper);
+    }
+
+    .update,
+    .details {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 24px 58px;
+    }
+
+    .update {
+        border-right: 1px solid rgba(247, 248, 246, 0.18);
+    }
+
+    .footer-label {
+        margin-bottom: 9px;
+        color: var(--accent);
+        font-size: 12px;
+    }
+
+    .footer-value {
+        font-family: Cambria, Georgia, serif;
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 1.1;
+    }
+
+    .footer-detail {
+        margin-top: 5px;
+        color: rgba(247, 248, 246, 0.68);
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .site {
+        font-size: 24px;
+        font-weight: 700;
+    }
+</style>
+</head>
+<body>
+<div class="card">
+    <div class="top-rule" aria-hidden="true"></div>
+
+    <main class="content">
+        <header class="header">
+            <div class="eyebrow">NeurIPS 2026 Workshop</div>
+        </header>
+
+        <h1>Foundations of<br>Language Model Security</h1>
+        <div class="workshop-name">Theory, Practice, and Fundamental Limits</div>
+
+        <section class="deadlines" aria-label="Extended deadlines">
+            <div class="deadline-row">
+                <div class="deadline-label">Paper<br>Submissions</div>
+                <div class="date-change">
+                    <div>
+                        <div class="date-caption">Previous</div>
+                        <div class="date-value old">Aug 22</div>
+                    </div>
+                    <div class="arrow" aria-hidden="true">&rarr;</div>
+                    <div>
+                        <div class="date-caption new">New Deadline</div>
+                        <div class="date-value new">Aug 27, 2026</div>
+                        <div class="date-time">23:59 AoE</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deadline-row">
+                <div class="deadline-label">Reviewer<br>Applications</div>
+                <div class="date-change">
+                    <div>
+                        <div class="date-caption">Previous</div>
+                        <div class="date-value old">Aug 21</div>
+                    </div>
+                    <div class="arrow" aria-hidden="true">&rarr;</div>
+                    <div>
+                        <div class="date-caption new">New Deadline</div>
+                        <div class="date-value new">Aug 26, 2026</div>
+                        <div class="date-time">23:59 AoE</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="update">
+            <div class="footer-label">Important Update</div>
+            <div class="footer-value">Deadlines Extended</div>
+        </div>
+        <div class="details">
+            <div class="footer-label">Details &amp; Applications</div>
+            <div class="site">flmsec.github.io</div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
