@@ -715,6 +715,28 @@
             gap: 12px;
         }
 
+        .faq-list {
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .faq-list li {
+            margin-bottom: 24px;
+        }
+
+        .faq-question {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .faq-answer {
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
         .submit-button {
             display: inline-block;
             margin-top: 12px;
@@ -1232,6 +1254,25 @@
                         <li>Self-citations must be anonymized (e.g., "In the previous work of Jha et al. [1]&hellip;" rather than "our previous work").</li>
                         <li>Papers violating this policy will be desk rejected.</li>
                         <li>Reviewers are not permitted to use AI tools to review papers. Authors are fully responsible for all content present in their paper.</li>
+                    </ul>
+                    <h3>Frequently Asked Questions</h3>
+                    <ul class="faq-list">
+                        <li>
+                            <span class="faq-question">Are the appendix and references included in the page count?</span>
+                            <p class="faq-answer">No. The appendix and references are excluded from the page count. Reviewers are not required to read the appendix, so it cannot be used to bypass the page limit. It should contain only optional supplementary material that reviewers may consult if they wish.</p>
+                        </li>
+                        <li>
+                            <span class="faq-question">Can I submit to other NeurIPS workshops concurrently?</span>
+                            <p class="faq-answer">Yes. You may submit to multiple workshops, but we recommend choosing workshops held at the same NeurIPS location. Our workshop will be held in Paris.</p>
+                        </li>
+                        <li>
+                            <span class="faq-question">Can I submit a paper that is also under review at NeurIPS 2026? What happens if it is accepted?</span>
+                            <p class="faq-answer">Yes. If the paper is accepted to the NeurIPS 2026 main conference, we will ask the authors to withdraw it from the workshop, as required by the NeurIPS workshop rules.</p>
+                        </li>
+                        <li>
+                            <span class="faq-question">Do submissions need to be anonymized?</span>
+                            <p class="faq-answer">Yes. The review process is double-blind, and all submissions must comply with the anonymization requirements described above.</p>
+                        </li>
                     </ul>
                     <div class="submission-actions">
                         <a class="submit-button" href="https://openreview.net/group?id=NeurIPS.cc/2026/Workshop/FLMSec" target="_blank" rel="noopener">Submit via OpenReview</a>
