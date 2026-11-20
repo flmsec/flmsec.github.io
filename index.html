@@ -667,6 +667,124 @@
             font-style: italic;
         }
 
+        .schedule-meta {
+            margin-bottom: 24px;
+            color: var(--text-tertiary);
+            font-size: 0.88rem;
+            letter-spacing: 0.3px;
+        }
+
+        .schedule {
+            margin: 0;
+            padding: 0;
+            border-top: 1px solid var(--border-light);
+            list-style: none;
+        }
+
+        .schedule-item {
+            display: grid;
+            grid-template-columns: 124px minmax(0, 1fr);
+            gap: 28px;
+            align-items: baseline;
+            margin: 0;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .schedule-block {
+            padding-top: 18px;
+            padding-bottom: 18px;
+            box-shadow: inset 2px 0 0 var(--primary-black);
+        }
+
+        .schedule-break {
+            padding-top: 9px;
+            padding-bottom: 9px;
+            background: var(--bg-subtle);
+        }
+
+        .schedule-time {
+            color: var(--primary-black);
+            font-size: 0.9rem;
+            font-weight: 500;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        .schedule-end {
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+
+        .schedule-kind {
+            display: block;
+            margin-top: 2px;
+            color: var(--text-tertiary);
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        .schedule-title {
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .schedule-affiliation {
+            margin-left: 8px;
+            color: var(--text-tertiary);
+            font-size: 0.88rem;
+            font-weight: 400;
+        }
+
+        .schedule-break .schedule-time,
+        .schedule-break .schedule-title {
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+
+        .schedule-detail {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+        }
+
+        .schedule-parts {
+            margin: 6px 0 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .schedule-parts li {
+            display: flex;
+            align-items: baseline;
+            gap: 14px;
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.7;
+        }
+
+        .schedule-duration {
+            flex: 0 0 48px;
+            color: var(--text-tertiary);
+            font-size: 0.8rem;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        .schedule-topic {
+            color: var(--text-primary);
+        }
+
+        .schedule-tba {
+            color: var(--text-tertiary);
+            font-style: italic;
+        }
+
         .submission-layout {
             display: grid;
             grid-template-columns: minmax(0, 1fr) 300px;
@@ -835,6 +953,39 @@
             text-transform: uppercase;
         }
 
+        .tba-text {
+            margin: 0;
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .sponsors {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 40px 64px;
+            padding: 10px 0;
+        }
+
+        .sponsor-logo {
+            display: block;
+            transition: opacity 0.3s ease;
+        }
+
+        .sponsor-logo:hover {
+            opacity: 0.7;
+        }
+
+        .sponsor-logo img {
+            display: block;
+            width: 400px;
+            max-width: 100%;
+            height: auto;
+        }
+
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -908,7 +1059,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @media (max-width: 960px) {
+        @media (max-width: 1080px) {
             .menu-button {
                 display: block;
             }
@@ -939,7 +1090,9 @@
             .nav-link::after {
                 display: none;
             }
+        }
 
+        @media (max-width: 960px) {
             .people-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -1011,6 +1164,31 @@
                 left: -26px;
             }
 
+            .schedule-item {
+                grid-template-columns: 64px minmax(0, 1fr);
+                gap: 14px;
+                padding-right: 12px;
+                padding-left: 12px;
+            }
+
+            .schedule-end {
+                display: block;
+                font-size: 0.8rem;
+            }
+
+            .schedule-affiliation {
+                display: block;
+                margin-left: 0;
+            }
+
+            .schedule-parts li {
+                gap: 10px;
+            }
+
+            .schedule-duration {
+                flex-basis: 44px;
+            }
+
             .contact-card {
                 padding: 32px 16px;
             }
@@ -1052,7 +1230,7 @@
                     <a href="#schedule" class="nav-link">Schedule</a>
                     <a href="#submissions" class="nav-link">Submissions</a>
                     <a href="#organizers" class="nav-link">Organizers</a>
-                    <a href="#discussion-chairs" class="nav-link">Chairs</a>
+                    <a href="#volunteers" class="nav-link">Volunteers</a>
                     <a href="#supported-by" class="nav-link">Support</a>
                     <a href="#contact" class="nav-link">Contact</a>
                 </div>
@@ -1075,7 +1253,7 @@
         <div class="hero-content">
             <h1>Foundations of Language Model Security</h1>
             <div class="hero-subtitle">Theory, Practice, and Fundamental Limits</div>
-            <div class="hero-meta">NeurIPS 2026 Workshop &bull; December 13 &bull; Paris, France</div>
+            <div class="hero-meta">NeurIPS 2026 Workshop &bull; December 13 &bull; Palais&nbsp;des&nbsp;Congr&egrave;s, Room&nbsp;253, Paris,&nbsp;France</div>
         </div>
     </header>
 
@@ -1110,7 +1288,7 @@
         <section id="format">
             <h2>Workshop Format</h2>
             <p>The workshop will consist of four thematic blocks. Each block will consist of a 45-minute expert keynote followed by a 30-minute guided discussion, in which participants split into groups of 10-15 with an assigned discussion chair.</p>
-            <p>The goal of the discussion is to identify open questions that emerge from the keynote. At the end of the discussion, each chair will deliver a 2-minute summary to all attendees. The program will also include a joint poster session, two spotlight contributed talks, and interactive demos to encourage discussion beyond the themes of each block.</p>
+            <p>The goal of the discussion is to identify open questions that emerge from the keynote. The program will also include a joint poster session, two spotlight contributed talks, and interactive demos to encourage discussion beyond the themes of each block.</p>
 
             <!-- Temporarily hidden until all keynote topics are finalized.
             <div class="thematic-blocks">
@@ -1161,9 +1339,9 @@
                     <img class="speaker-photo" src="assets/niloofar.jpg" alt="Niloofar Mireshghallah">
                     <div class="speaker-info">
                         <div class="speaker-name"><span>Niloofar Mireshghallah</span></div>
-                        <div class="speaker-affiliation">humans&amp; and CMU</div>
+                        <div class="speaker-affiliation">CMU and humans&amp;</div>
                         <div class="speaker-topic">To be announced</div>
-                        <div class="speaker-bio">Niloofar is a member of Technical Staff at humans&amp; and incoming Assistant Professor at CMU. She studies privacy, memorization, and contextual integrity in language models.</div>
+                        <div class="speaker-bio">Niloofar is an Assistant Professor at CMU and a member of Technical Staff at humans&amp;. She studies privacy, memorization, and contextual integrity in language models.</div>
                     </div>
                 </article>
                 <article class="speaker-row">
@@ -1171,7 +1349,7 @@
                     <div class="speaker-info">
                         <div class="speaker-name"><a href="https://eng.ox.ac.uk/people/christian-schroeder-de-witt/" target="_blank" rel="noopener">Christian Schroeder de Witt</a></div>
                         <div class="speaker-affiliation">University of Oxford</div>
-                        <div class="speaker-topic">Fundamental Limits of Security</div>
+                        <div class="speaker-topic">Fundamental Limits of Security (Q3) </div>
                         <div class="speaker-bio">Christian is the Principal Investigator of the Oxford Witt Lab at the University of Oxford. He studies multi-agent security and fundamental limits of assurance in agentic systems.</div>
                     </div>
                 </article>
@@ -1223,7 +1401,95 @@
 
         <section id="schedule">
             <h2>Schedule</h2>
-            <div class="tba-panel">To be announced</div>
+            <p class="schedule-meta">Sunday, December 13 &bull; Palais des Congr&egrave;s, Room 253, Paris, France &bull; All times are local (CET)</p>
+            <ol class="schedule">
+                <li class="schedule-item">
+                    <div class="schedule-time">09:00 <span class="schedule-end">&ndash;&nbsp;09:05</span></div>
+                    <div class="schedule-title">Opening remarks</div>
+                </li>
+                <li class="schedule-item schedule-block">
+                    <div class="schedule-time">09:05 <span class="schedule-end">&ndash;&nbsp;10:20</span><span class="schedule-kind">Block 1</span></div>
+                    <div>
+                        <div class="schedule-title">Christian Schroeder de Witt <span class="schedule-affiliation">University of Oxford</span></div>
+                        <ul class="schedule-parts">
+                            <li><span class="schedule-duration">45 min</span><span>Keynote: <span class="schedule-topic">Fundamental Limits of Security</span> <span class="question-ref">[<a class="q3" href="#question-3">Q3</a>]</span></span></li>
+                            <li><span class="schedule-duration">30 min</span><span>Guided discussion</span></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="schedule-item">
+                    <div class="schedule-time">10:20 <span class="schedule-end">&ndash;&nbsp;11:00</span></div>
+                    <div class="schedule-title">Poster session</div>
+                </li>
+                <li class="schedule-item">
+                    <div class="schedule-time">11:00 <span class="schedule-end">&ndash;&nbsp;11:20</span><span class="schedule-kind">Demo</span></div>
+                    <div>
+                        <div class="schedule-title">Matthew Maisel <span class="schedule-affiliation">Sondera</span></div>
+                        <div class="schedule-detail">Interactive demonstration</div>
+                    </div>
+                </li>
+                <li class="schedule-item schedule-block">
+                    <div class="schedule-time">11:20 <span class="schedule-end">&ndash;&nbsp;12:30</span><span class="schedule-kind">Block 2</span></div>
+                    <div>
+                        <div class="schedule-title">Somesh Jha <span class="schedule-affiliation">University of Wisconsin-Madison</span></div>
+                        <ul class="schedule-parts">
+                            <li><span class="schedule-duration">45 min</span><span>Keynote: <span class="schedule-tba">title to be announced</span></span></li>
+                            <li><span class="schedule-duration">30 min</span><span>Guided discussion</span></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="schedule-item schedule-break">
+                    <div class="schedule-time">12:30 <span class="schedule-end">&ndash;&nbsp;14:00</span></div>
+                    <div class="schedule-title">Lunch</div>
+                </li>
+                <li class="schedule-item schedule-block">
+                    <div class="schedule-time">14:00 <span class="schedule-end">&ndash;&nbsp;15:15</span><span class="schedule-kind">Block 3</span></div>
+                    <div>
+                        <div class="schedule-title">Niloofar Mireshghallah <span class="schedule-affiliation">CMU and humans&amp;</span></div>
+                        <ul class="schedule-parts">
+                            <li><span class="schedule-duration">45 min</span><span>Keynote: <span class="schedule-tba">title to be announced</span></span></li>
+                            <li><span class="schedule-duration">30 min</span><span>Guided discussion</span></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="schedule-item schedule-break">
+                    <div class="schedule-time">15:15 <span class="schedule-end">&ndash;&nbsp;15:20</span></div>
+                    <div class="schedule-title">Break</div>
+                </li>
+                <li class="schedule-item">
+                    <div class="schedule-time">15:20 <span class="schedule-end">&ndash;&nbsp;15:40</span><span class="schedule-kind">Demo</span></div>
+                    <div>
+                        <div class="schedule-title">Julia Bazinska <span class="schedule-affiliation">Lakera AI</span></div>
+                        <div class="schedule-detail">Interactive demonstration</div>
+                    </div>
+                </li>
+                <li class="schedule-item">
+                    <div class="schedule-time">15:40 <span class="schedule-end">&ndash;&nbsp;15:50</span></div>
+                    <div class="schedule-title">Spotlight contributed talk 1</div>
+                </li>
+                <li class="schedule-item">
+                    <div class="schedule-time">15:50 <span class="schedule-end">&ndash;&nbsp;16:00</span></div>
+                    <div class="schedule-title">Spotlight contributed talk 2</div>
+                </li>
+                <li class="schedule-item schedule-break">
+                    <div class="schedule-time">16:00 <span class="schedule-end">&ndash;&nbsp;16:10</span></div>
+                    <div class="schedule-title">Break</div>
+                </li>
+                <li class="schedule-item schedule-block">
+                    <div class="schedule-time">16:10 <span class="schedule-end">&ndash;&nbsp;17:25</span><span class="schedule-kind">Block 4</span></div>
+                    <div>
+                        <div class="schedule-title">Reza Shokri <span class="schedule-affiliation">Google and National University of Singapore</span></div>
+                        <ul class="schedule-parts">
+                            <li><span class="schedule-duration">45 min</span><span>Keynote: <span class="schedule-topic">Privacy in AI Agents</span> <span class="question-ref">[<a class="q1" href="#question-1">Q1</a>, <a class="q2" href="#question-2">Q2</a>]</span></span></li>
+                            <li><span class="schedule-duration">30 min</span><span>Guided discussion</span></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="schedule-item">
+                    <div class="schedule-time">17:25 <span class="schedule-end">&ndash;&nbsp;17:30</span></div>
+                    <div class="schedule-title">Closing remarks</div>
+                </li>
+            </ol>
         </section>
 
         <section id="submissions">
@@ -1342,15 +1608,18 @@
             </div>
         </section>
 
-        <section id="discussion-chairs">
-            <h2>Discussion Chairs</h2>
-            <p>Each thematic block will break into small, moderated groups to identify open questions from the keynote.</p>
-            <div class="tba-panel">To be announced</div>
+        <section id="volunteers">
+            <h2>Volunteers</h2>
+            <p class="tba-text">To be announced</p>
         </section>
 
         <section id="supported-by">
             <h2>Supported By</h2>
-            <div class="tba-panel">To be announced</div>
+            <div class="sponsors">
+                <a class="sponsor-logo" href="https://sphex.io" target="_blank" rel="noopener">
+                    <img src="assets/sphex.svg" alt="Sphex - Control Infrastructure for Autonomous AI" width="495" height="58">
+                </a>
+            </div>
         </section>
 
         <section id="contact">
@@ -1370,7 +1639,7 @@
         </section>
     </main>
 
-    <footer>NeurIPS 2026 Workshop on Foundations of Language Model Security &bull; Paris, France</footer>
+    <footer>NeurIPS 2026 Workshop on Foundations of Language Model Security &bull; Palais des Congr&egrave;s, Room 253, Paris, France</footer>
 
     <script>
         const navbar = document.getElementById("navbar");
